@@ -1,7 +1,7 @@
 import pytest
 from assertpy import assert_that
 import random
-from ps3b import SimpleVirus
+from ps3b import SimpleVirus, NoChildException
 
 
 class TestSimpleVirus:
@@ -47,3 +47,12 @@ class TestSimpleVirus:
         result = virus.reproduce(popDensity)
         #Then
         assert_that(result).is_instance_of(SimpleVirus)
+
+    @pytest.mark.parametrize('maxBirthProb, clearProb, popDensity', [(0.2, 0.8, 0.2), (0.1, 0.6, 0.3)])
+    def test_reproduce(self, popDensity):
+        #Given
+        virus = self.simple_virus
+        #When
+        result = virus.reproduce
+        #Then
+        assert_that(result).raises(NoChildException).when_called_with(popDensity)
