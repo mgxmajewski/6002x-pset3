@@ -1,7 +1,7 @@
 import pytest
 from assertpy import assert_that
 import random
-from ps3b import SimpleVirus, NoChildException, Patient
+from ps3b import SimpleVirus, NoChildException, Patient, ResistantVirus
 
 
 class TestSimpleVirus:
@@ -87,3 +87,25 @@ class TestPatient:
         # Then
         result = patient.getTotalPop()
         assert_that(result).is_equal_to(expected)
+
+
+class TestResistantVirus:
+
+    @pytest.fixture(autouse=True)
+    def prepare_resistant_virus(self, maxBirthProb, clearProb, resistances, mutProb):
+        self.resistant_virus = ResistantVirus(maxBirthProb, clearProb, resistances, mutProb)
+
+    @pytest.mark.parametrize(
+        'maxBirthProb, clearProb, resistances, mutProb',
+        [(0.0, 1.0, {"drug1":True, "drug2":False}, 0.0)])
+    def test_is_resistant_to(self):
+        # Given
+        virus = self.resistant_virus
+        drug = 'drug1'
+        # When
+        result = virus.isResistantTo(drug)
+        # Then
+        assert_that(result).is_true()
+
+    def test_reproduce(self):
+        assert False
