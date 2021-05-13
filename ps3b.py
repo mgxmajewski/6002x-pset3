@@ -2,7 +2,7 @@
 import os
 import random
 import pylab
-import numpy as np
+
 
 random.seed(0)
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -181,9 +181,22 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     clearProb: Maximum clearance probability (a float between 0-1)
     numTrials: number of simulation runs to execute (an integer)
     """
+    import numpy as np
+    steps = 300
+    virus_data = np.zeros(300)
+    for trial in range(numTrials):
+        virus = SimpleVirus(maxBirthProb, clearProb)
+        viruses = [virus] * numViruses
+        patient = Patient(viruses, maxPop)
+        virus_steps = []
+        for step in range(steps):
+            patient.update()
+            virus_steps.append(patient.getTotalPop())
+        virus_data = virus_data + virus_steps
 
+    avg = virus_data/numTrials
 
-    pylab.plot('YOUR_Y_AXIS_VALUES', label="SimpleVirus")
+    pylab.plot(list(avg), label="SimpleVirus")
     pylab.title("SimpleVirus simulation")
     pylab.xlabel("Time Steps")
     pylab.ylabel("Average Virus Population")
@@ -401,3 +414,6 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     """
 
     # TODO
+
+
+simulationWithoutDrug(1, 90, 0.8, 0.1, 1)
