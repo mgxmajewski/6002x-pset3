@@ -304,8 +304,22 @@ class ResistantVirus(SimpleVirus):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.
         """
-
-        # TODO
+        rand = random.random()
+        virus_reproduce_probability = self.maxBirthProb * (1 - popDensity)
+        if all([self.isResistantTo(drug) for drug in activeDrugs]):
+            if rand <= virus_reproduce_probability:
+                current_resistances = self.getResistances()
+                for key in self.getResistances().keys():
+                    if rand <= self.getMutProb():
+                        if self.getResistances()[key]:
+                            current_resistances[key] = False
+                        else:
+                            current_resistances[key] = True
+                return ResistantVirus(self.maxBirthProb, self.clearProb, current_resistances, self.mutProb)
+            else:
+                raise NoChildException
+        else:
+            raise NoChildException
 
 
 class TreatedPatient(Patient):
