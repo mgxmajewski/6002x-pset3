@@ -37,7 +37,6 @@ class SimpleVirus(object):
         self.maxBirthProb = maxBirthProb
         self.clearProb = clearProb
 
-
     def getMaxBirthProb(self):
         """
         Returns the max birth probability.
@@ -63,7 +62,7 @@ class SimpleVirus(object):
             return True
         else:
             return False
-    
+
     def reproduce(self, popDensity):
         """
         Stochastically determines whether this virus particle reproduces at a
@@ -83,16 +82,19 @@ class SimpleVirus(object):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.               
         """
-
-        # TODO
-
+        self.random = 0.5
+        try:
+            if self.maxBirthProb * (1 - popDensity) >= self.random:
+                return SimpleVirus(self.maxBirthProb, self.clearProb)
+        except:
+            raise NoChildException
 
 
 class Patient(object):
     """
     Representation of a simplified patient. The patient does not take any drugs
     and his/her virus populations have no drug resistance.
-    """    
+    """
 
     def __init__(self, viruses, maxPop):
         """
@@ -113,13 +115,11 @@ class Patient(object):
         """
         # TODO
 
-
     def getMaxPop(self):
         """
         Returns the max population.
         """
         # TODO
-
 
     def getTotalPop(self):
         """
@@ -128,7 +128,6 @@ class Patient(object):
         """
 
         # TODO        
-
 
     def update(self):
         """
@@ -150,7 +149,6 @@ class Patient(object):
         """
 
         # TODO
-
 
 
 #
@@ -175,14 +173,13 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     # TODO
 
 
-
 #
 # PROBLEM 3
 #
 class ResistantVirus(SimpleVirus):
     """
     Representation of a virus which can have drug resistance.
-    """   
+    """
 
     def __init__(self, maxBirthProb, clearProb, resistances, mutProb):
         """
@@ -203,7 +200,6 @@ class ResistantVirus(SimpleVirus):
         """
 
         # TODO
-
 
     def getResistances(self):
         """
@@ -228,9 +224,8 @@ class ResistantVirus(SimpleVirus):
         returns: True if this virus instance is resistant to the drug, False
         otherwise.
         """
-        
-        # TODO
 
+        # TODO
 
     def reproduce(self, popDensity, activeDrugs):
         """
@@ -279,7 +274,6 @@ class ResistantVirus(SimpleVirus):
 
         # TODO
 
-            
 
 class TreatedPatient(Patient):
     """
@@ -301,7 +295,6 @@ class TreatedPatient(Patient):
 
         # TODO
 
-
     def addPrescription(self, newDrug):
         """
         Administer a drug to this patient. After a prescription is added, the
@@ -315,7 +308,6 @@ class TreatedPatient(Patient):
 
         # TODO
 
-
     def getPrescriptions(self):
         """
         Returns the drugs that are being administered to this patient.
@@ -325,7 +317,6 @@ class TreatedPatient(Patient):
         """
 
         # TODO
-
 
     def getResistPop(self, drugResist):
         """
@@ -340,7 +331,6 @@ class TreatedPatient(Patient):
         """
 
         # TODO
-
 
     def update(self):
         """
@@ -364,7 +354,6 @@ class TreatedPatient(Patient):
         """
 
         # TODO
-
 
 
 #
