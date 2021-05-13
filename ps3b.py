@@ -22,9 +22,9 @@ class NoChildException(Exception):
 End helper code
 '''
 
-#
+
 # PROBLEM 1
-#
+
 class SimpleVirus(object):
 
     """
@@ -33,8 +33,8 @@ class SimpleVirus(object):
     def __init__(self, maxBirthProb, clearProb):
         """
         Initialize a SimpleVirus instance, saves all parameters as attributes
-        of the instance.        
-        maxBirthProb: Maximum reproduction probability (a float between 0-1)        
+        of the instance.
+        maxBirthProb: Maximum reproduction probability (a float between 0-1)
         clearProb: Maximum clearance probability (a float between 0-1).
         """
         self.maxBirthProb = maxBirthProb
@@ -58,9 +58,8 @@ class SimpleVirus(object):
         returns: True with probability self.getClearProb and otherwise returns
         False.
         """
-        # rand = random.random()
-        rand = 0.5
-        # self.random = random.random()
+        rand = random.random()
+        # rand = 0.5
         clear_prob = self.getClearProb()
         if clear_prob >= rand:
             return True
@@ -86,8 +85,8 @@ class SimpleVirus(object):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.
         """
-        # rand = random.random()
-        rand = 0.5
+        rand = random.random()
+        # rand = 0.5
         if self.maxBirthProb * (1 - popDensity) >= rand:
             return SimpleVirus(self.maxBirthProb, self.clearProb)
         else:
@@ -127,7 +126,7 @@ class Patient(object):
 
     def getTotalPop(self):
         """
-        Gets the size of the current total virus population. 
+        Gets the size of the current total virus population.
         returns: The total virus population (an integer)
         """
         return len(self.viruses)
@@ -138,14 +137,14 @@ class Patient(object):
         time step. update() should execute the following steps in this order:
         
         - Determine whether each virus particle survives and updates the list
-        of virus particles accordingly.   
+        of virus particles accordingly.
         
         - The current population density is calculated. This population density
-          value is used until the next call to update() 
+          value is used until the next call to update()
         
-        - Based on this value of population density, determine whether each 
-          virus particle should reproduce and add offspring virus particles to 
-          the list of viruses in this patient.                    
+        - Based on this value of population density, determine whether each
+          virus particle should reproduce and add offspring virus particles to
+          the list of viruses in this patient.
 
         returns: The total virus population at the end of the update (an
         integer)
@@ -249,15 +248,17 @@ class ResistantVirus(SimpleVirus):
         """
         Get the state of this virus particle's resistance to a drug. This method
         is called by getResistPop() in TreatedPatient to determine how many virus
-        particles have resistance to a drug.       
+        particles have resistance to a drug.
 
         drug: The drug (a string)
 
         returns: True if this virus instance is resistant to the drug, False
         otherwise.
         """
-
-        # TODO
+        try:
+            return self.resistances[drug]
+        except KeyError:
+            return False
 
     def reproduce(self, popDensity, activeDrugs):
         """
@@ -417,4 +418,4 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     # TODO
 
 
-simulationWithoutDrug(1, 90, 0.8, 0.1, 1)
+# simulationWithoutDrug(1, 90, 0.8, 0.1, 1)
