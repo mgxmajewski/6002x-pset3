@@ -442,7 +442,39 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     
     """
 
-    # TODO
+    import numpy as np
+    steps = 150
+    steps2 = 150
+    virus_data = np.zeros(300)
+    resist_virus_data = np.zeros(300)
+    for trial in range(numTrials):
+        virus = ResistantVirus(maxBirthProb, clearProb, resistances, mutProb)
+        viruses = [virus] * numViruses
+        patient = TreatedPatient(viruses, maxPop)
+        virus_steps, resist_virus_steps = [], []
+        for step in range(steps):
+            patient.update()
+            virus_steps.append(patient.getTotalPop())
+            resist_virus_steps.append(patient.getResistPop(['guttagonol']))
+        patient.addPrescription('guttagonol')
+        for step2 in range(steps2):
+            patient.update()
+            virus_steps.append(patient.getTotalPop())
+            resist_virus_steps.append(patient.getResistPop(['guttagonol']))
+
+        virus_data = virus_data + virus_steps
+        resist_virus_data = resist_virus_data + resist_virus_steps
+
+    avg = virus_data / numTrials
+    avg2 = resist_virus_data / numTrials
+
+    pylab.plot(list([float('{0:.1f}'.format(i)) for i in avg]), label="Non-resistant population")
+    pylab.plot(list([float('{0:.1f}'.format(i)) for i in avg2]), label="guttagonol resistant population")
+    pylab.title("ResistantVirus simulation")
+    pylab.xlabel("Time Steps")
+    pylab.ylabel("Average Virus Population")
+    pylab.legend(loc="best")
+    pylab.show()
 
 
 # simulationWithoutDrug(1, 90, 0.8, 0.1, 1)
