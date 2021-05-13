@@ -403,7 +403,17 @@ class TreatedPatient(Patient):
         integer)
         """
 
-        # TODO
+        viruses = self.getViruses()
+        pop_density = len(self.viruses) / self.getMaxPop()
+        for virus in viruses:
+            if virus.doesClear():
+                self.viruses.remove(virus)
+        for virus in viruses:
+            try:
+                virus.reproduce(pop_density)
+                self.viruses.append(virus)
+            except NoChildException:
+                continue
 
 
 #
