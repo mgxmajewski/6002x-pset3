@@ -150,8 +150,17 @@ class Patient(object):
         returns: The total virus population at the end of the update (an
         integer)
         """
-
-        # TODO
+        viruses = self.getViruses()
+        popDensity = len(self.viruses) / self.maxPop
+        for virus in viruses:
+            if virus.doesClear():
+                self.viruses.remove(virus)
+        for virus in viruses:
+            try:
+                virus.reproduce(popDensity)
+                self.viruses.append(virus)
+            except NoChildException:
+                continue
 
 
 #
