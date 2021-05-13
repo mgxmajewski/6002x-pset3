@@ -11,13 +11,13 @@ class TestSimpleVirus:
         self.simple_virus = SimpleVirus(maxBirthProb, clearProb)
 
     @pytest.mark.parametrize('maxBirthProb, clearProb', [(0.1, 0.2)])
-    def test_get_max_birth_prob(self, maxBirthProb, clearProb):
+    def test_get_max_birth_prob(self):
         #Given
         virus = self.simple_virus
         #When
         result = virus.getMaxBirthProb()
         #Then
-        assert_that(result).is_close_to(0.1, 3)
+        assert_that(result).is_equal_to(0.1)
 
     @pytest.mark.parametrize('maxBirthProb, clearProb', [(0.1, 0.3)])
     def test_get_clear_prob(self):
@@ -26,10 +26,18 @@ class TestSimpleVirus:
         #When
         result = virus.getClearProb()
         #Then
-        assert_that(result).is_close_to(0.3, 3)
+        assert_that(result).is_equal_to(0.3)
 
-    def test_does_clear(self):
-        assert False
+    @pytest.mark.parametrize('maxBirthProb, clearProb, expected', [(0.1, 0.8, True), (0.1, 0.6, True), (0.1, 0.3, False)])
+    def test_does_clear(self, expected):
+        #Given
+        virus = self.simple_virus
+        #When
+        result = virus.doesClear()
+        #Then
+        print(result)
+        assert_that(result).is_equal_to(expected)
+
 
     def test_reproduce(self):
         assert False
