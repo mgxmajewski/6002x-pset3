@@ -39,5 +39,11 @@ class TestSimpleVirus:
         assert_that(result).is_equal_to(expected)
 
 
-    def test_reproduce(self):
-        assert False
+    @pytest.mark.parametrize('maxBirthProb, clearProb, popDensity', [(0.9, 0.8, 0.2), (0.8, 0.6, 0.3)])
+    def test_reproduce(self, popDensity):
+        #Given
+        virus = self.simple_virus
+        #When
+        result = virus.reproduce(popDensity)
+        #Then
+        assert_that(result).is_instance_of(SimpleVirus)
