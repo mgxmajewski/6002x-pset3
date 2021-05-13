@@ -2,7 +2,7 @@
 
 import random
 import pylab
-
+random.seed(0)
 ''' 
 Begin helper code
 '''
@@ -56,7 +56,10 @@ class SimpleVirus(object):
         returns: True with probability self.getClearProb and otherwise returns
         False.
         """
-        if self.getClearProb():
+        self.random = 0.5
+        # self.random = random.random()
+        clear_prob = self.getClearProb()
+        if clear_prob >= self.random:
             return True
         else:
             return False
