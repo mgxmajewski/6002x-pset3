@@ -19,8 +19,14 @@ class TestSimpleVirus:
         #Then
         assert_that(result).is_close_to(0.1, 3)
 
+    @pytest.mark.parametrize('maxBirthProb, clearProb', [(0.1, 0.3)])
     def test_get_clear_prob(self):
-        assert False
+        #Given
+        virus = self.simple_virus
+        #When
+        result = virus.getClearProb()
+        #Then
+        assert_that(result).is_close_to(0.3, 3)
 
     def test_does_clear(self):
         assert False
