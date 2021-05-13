@@ -151,13 +151,13 @@ class Patient(object):
         integer)
         """
         viruses = self.getViruses()
-        popDensity = len(self.viruses) / self.maxPop
+        pop_density = len(self.viruses) / self.getMaxPop()
         for virus in viruses:
             if virus.doesClear():
                 self.viruses.remove(virus)
         for virus in viruses:
             try:
-                virus.reproduce(popDensity)
+                virus.reproduce(pop_density)
                 self.viruses.append(virus)
             except NoChildException:
                 continue
@@ -182,7 +182,13 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     numTrials: number of simulation runs to execute (an integer)
     """
 
-    # TODO
+
+    pylab.plot('YOUR_Y_AXIS_VALUES', label="SimpleVirus")
+    pylab.title("SimpleVirus simulation")
+    pylab.xlabel("Time Steps")
+    pylab.ylabel("Average Virus Population")
+    pylab.legend(loc="best")
+    pylab.show()
 
 
 #
