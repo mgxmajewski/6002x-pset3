@@ -1,8 +1,11 @@
 # Problem Set 3: Simulating the Spread of Disease and Virus Population Dynamics 
-
+import os
 import random
 import pylab
+import numpy as np
+
 random.seed(0)
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
 ''' 
 Begin helper code
 '''
@@ -107,28 +110,27 @@ class Patient(object):
 
         maxPop: the maximum virus population for this patient (an integer)
         """
-
-        # TODO
+        self.viruses = viruses
+        self.maxPop = maxPop
 
     def getViruses(self):
         """
         Returns the viruses in this Patient.
         """
-        # TODO
+        return self.viruses
 
     def getMaxPop(self):
         """
         Returns the max population.
         """
-        # TODO
+        return self.maxPop
 
     def getTotalPop(self):
         """
         Gets the size of the current total virus population. 
         returns: The total virus population (an integer)
         """
-
-        # TODO        
+        return len(self.viruses)
 
     def update(self):
         """
