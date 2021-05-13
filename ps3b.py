@@ -51,14 +51,15 @@ class SimpleVirus(object):
 
     def doesClear(self):
         """ Stochastically determines whether this virus particle is cleared from the
-        patient's body at a time step. 
+        patient's body at a time step.
         returns: True with probability self.getClearProb and otherwise returns
         False.
         """
-        self.random = 0.5
+        # rand = random.random()
+        rand = 0.5
         # self.random = random.random()
         clear_prob = self.getClearProb()
-        if clear_prob >= self.random:
+        if clear_prob >= rand:
             return True
         else:
             return False
@@ -69,24 +70,24 @@ class SimpleVirus(object):
         time step. Called by the update() method in the Patient and
         TreatedPatient classes. The virus particle reproduces with probability
         self.maxBirthProb * (1 - popDensity).
-        
+
         If this virus particle reproduces, then reproduce() creates and returns
         the instance of the offspring SimpleVirus (which has the same
-        maxBirthProb and clearProb values as its parent).         
+        maxBirthProb and clearProb values as its parent).
 
         popDensity: the population density (a float), defined as the current
-        virus population divided by the maximum population.         
-        
+        virus population divided by the maximum population.
+
         returns: a new instance of the SimpleVirus class representing the
         offspring of this virus particle. The child should have the same
         maxBirthProb and clearProb values as this virus. Raises a
-        NoChildException if this virus particle does not reproduce.               
+        NoChildException if this virus particle does not reproduce.
         """
-        self.random = 0.5
-        try:
-            if self.maxBirthProb * (1 - popDensity) >= self.random:
-                return SimpleVirus(self.maxBirthProb, self.clearProb)
-        except:
+        # rand = random.random()
+        rand = 0.5
+        if self.maxBirthProb * (1 - popDensity) >= rand:
+            return SimpleVirus(self.maxBirthProb, self.clearProb)
+        else:
             raise NoChildException
 
 
